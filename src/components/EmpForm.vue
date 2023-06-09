@@ -36,6 +36,41 @@ export default {
         cnpj: this.cnpj
       };
 
+      // Verificar se a empresa já existe
+      fetch('http://localhost:3000/empresas', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+        .then(response => {
+          if (response.ok) {
+            return response.json(); // Obter o corpo da resposta como JSON
+          } else {
+            throw new Error('Erro ao obter as empresas');
+          }
+        })
+        .then(data => {
+          // Verificar se a empresa já existe no array de empresas
+          const existingCompany = data.find(company => company.nome === formData.nome && company.cnpj === formData.cnpj);
+          if (existingCompany) {
+            // A empresa já existe
+            const companyId = existingCompany.id;
+            alert('A empresa já está cadastrada.');
+            this.companyName = '';
+            this.cnpj = '';
+            this.$router.push(`/empresa/${companyId}`); // Redirecionar para a rota dinâmica com o ID da empresa existente
+          } else {
+            // A empresa não existe, pode criar uma nova
+            this.createCompany(formData);
+          }
+        })
+        .catch(error => {
+          console.error('Erro ao verificar se a empresa existe:', error);
+          alert('Erro ao verificar se a empresa existe. Por favor, tente novamente.');
+        });
+    },
+    createCompany(formData) {
       fetch('http://localhost:3000/empresas', {
         method: 'POST',
         headers: {
@@ -97,8 +132,6 @@ export default {
   }
 };
 </script>
-
-
 
 <style scoped>
 .form-label {

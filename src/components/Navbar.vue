@@ -27,7 +27,7 @@
 }
 
 .icon_navbar img {
-    width: 65px;
+    width: 55px;
     margin-top: .5rem;
     margin-left: .5rem;
     border-radius: 50%;
