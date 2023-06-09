@@ -13,10 +13,19 @@ footer {
     margin-top: 3rem;
     display: flex;
     justify-content: center;
-    background-color: #fff;
+    color: #ccc;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 footer p {
     margin: 1rem;
 }
 </style>
+

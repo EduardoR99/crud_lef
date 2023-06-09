@@ -1,9 +1,9 @@
 <script setup>
-  import EmpForm from '../components/EmpForm.vue'
+  import CompList from '../components/CompList.vue'
 </script>
 
 <template>
   <main>
-    <EmpForm/>
+    <CompList/>
   </main>
 </template>
