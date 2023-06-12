@@ -50,6 +50,7 @@ export default {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
+            empresa_id: empresaId, // Passa o valor correto de empresa_id
             rua: this.street,
             cidade: this.city,
             estado: this.state,
@@ -58,7 +59,7 @@ export default {
         });
 
         if (response.ok) {
-          console.log('Endereço registrado com sucesso!');
+          alert('Endereço registrado com sucesso!');
         } else {
           console.error('Erro ao registrar endereço:', response.statusText);
           console.error('Detalhes do erro:', await response.text());
@@ -67,12 +68,51 @@ export default {
         console.error('Erro ao conectar com o servidor:', error);
       }
     },
-    editAddress() {
-      
-    },
-    deleteAddress() {
-      
+    async editAddress() {
+      const enderecoId = this.$route.params.id; // Obtém o valor de id da rota
+      try {
+        const response = await fetch(`http://localhost:3000/enderecos/${enderecoId}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            rua: this.street,
+            cidade: this.city,
+            estado: this.state,
+            cep: this.cep,
+          }),
+        });
+
+        if (response.ok) {
+          alert('Endereço atualizado com sucesso!');
+        } else {
+          console.error('Erro ao atualizar endereço:', response.statusText);
+          console.error('Detalhes do erro:', await response.text());
+        }
+      } catch (error) {
+        console.error('Erro ao conectar com o servidor:', error);
+      }
     }
+    ,
+    async deleteAddress() {
+      try {
+        const empresaId = this.$route.params.id; // Obtém o valor de empresa_id da rota
+        const response = await fetch(`http://localhost:3000/enderecos/${empresaId}`, {
+          method: 'DELETE',
+        });
+
+        if (response.ok) {
+          alert('Endereço excluído com sucesso!');
+        } else {
+          console.error('Erro ao excluir endereço:', response.statusText);
+          console.error('Detalhes do erro:', await response.text());
+        }
+      } catch (error) {
+        console.error('Erro ao conectar com o servidor:', error);
+      }
+    }
+
   }
 };
 </script>

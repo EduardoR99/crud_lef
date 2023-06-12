@@ -153,6 +153,7 @@ export default {
   padding-top: 6rem;
   margin: auto;
   max-width: 50%;
+  margin-bottom: 10rem;
 }
 
 .button {
